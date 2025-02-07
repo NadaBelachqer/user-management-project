@@ -6,9 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-/**
- * Récupérer tous les utilisateurs
- */
+
 app.get('/users', (req, res) => {
     db.all('SELECT * FROM users', [], (err, rows) => {
         if (err) {
@@ -18,9 +16,7 @@ app.get('/users', (req, res) => {
     });
 });
 
-/**
- * Ajouter un utilisateur
- */
+
 app.post('/users', (req, res) => {
     const { firstName, lastName, email, city } = req.body;
     
@@ -40,9 +36,7 @@ app.post('/users', (req, res) => {
     );
 });
 
-/**
- * Modifier un utilisateur
- */
+
 app.put('/users/:id', (req, res) => {
     const { firstName, lastName, email, city } = req.body;
     const { id } = req.params;
@@ -66,9 +60,7 @@ app.put('/users/:id', (req, res) => {
     );
 });
 
-/**
- * Supprimer un utilisateur
- */
+
 app.delete('/users/:id', (req, res) => {
     const { id } = req.params;
 
@@ -82,6 +74,30 @@ app.delete('/users/:id', (req, res) => {
         res.json({ message: "Utilisateur supprimé avec succès." });
     });
 });
+
+
+
+app.get('/users/search', (req, res) => {
+    const { query } = req.query; 
+
+    if (!query) {
+        return res.status(400).json({ error: "No search query provided." });
+    }
+
+    const searchQuery = `%${query}%`;
+
+    db.all(
+        'SELECT * FROM users WHERE firstName LIKE ? OR lastName LIKE ? OR email LIKE ? OR city LIKE ?',
+        [searchQuery, searchQuery, searchQuery, searchQuery],
+        (err, rows) => {
+            if (err) {
+                return res.status(500).json({ error: err.message });
+            }
+            res.json(rows);
+        }
+    );
+});
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
