@@ -114,10 +114,10 @@ const UserTable = ({ users, deleteUser, editUser }) => {
 
             {editingUser && (
                 <div className="mb-4">
-                    <h3>Modifier l'utilisateur</h3>
+                    <h3>Update User</h3>
                     <form onSubmit={handleUpdate}>
                         <div className="form-group">
-                            <label htmlFor="firstName">Prénom</label>
+                            <label htmlFor="firstName">First Name</label>
                             <input
                                 type="text"
                                 id="firstName"
@@ -129,7 +129,7 @@ const UserTable = ({ users, deleteUser, editUser }) => {
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="lastName">Nom</label>
+                            <label htmlFor="lastName">Last Name</label>
                             <input
                                 type="text"
                                 id="lastName"
@@ -153,7 +153,7 @@ const UserTable = ({ users, deleteUser, editUser }) => {
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="city">Ville</label>
+                            <label htmlFor="city">City</label>
                             <input
                                 type="text"
                                 id="city"
@@ -164,7 +164,7 @@ const UserTable = ({ users, deleteUser, editUser }) => {
                                 required
                             />
                         </div>
-                        <button type="submit" className="form-button">Mettre à jour</button>
+                        <button type="submit" className="form-button">Update</button>
                     </form>
                 </div>
             )}

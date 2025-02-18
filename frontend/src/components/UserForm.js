@@ -116,8 +116,8 @@ const UserForm = ({ addUser }) => {
                             required
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary w-100">Add User</button>
-                </form>
+                    <button type="submit" className="btn btn-primary w-100" style={{ background: '#FFA523', border:'#FFA523' }}>Add User</button>
+                    </form>
             </div>
         </div>
     );
