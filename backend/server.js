@@ -1,17 +1,30 @@
 const express = require('express');
 const cors = require('cors');
 const { Client } = require('pg');
-
-require('dotenv').config(); 
+require('dotenv').config();
 
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
-    ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
+    ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : undefined,
 });
 
 client.connect()
-    .then(() => console.log('Connecté à PostgreSQL'))
-    .catch(err => console.error(' Erreur de connexion à la base de données :', err.stack));
+    .then(() => {
+        console.log('✅ Connecté à PostgreSQL');
+        return client.query(`
+            CREATE TABLE IF NOT EXISTS users (
+                id SERIAL PRIMARY KEY,
+                firstName VARCHAR(100) NOT NULL,
+                lastName VARCHAR(100) NOT NULL,
+                email VARCHAR(150) UNIQUE NOT NULL,
+                city VARCHAR(100) NOT NULL
+            );
+        `);
+    })
+    .then(() => {
+        console.log("✅ Table 'users' prête !");
+    })
+    .catch(err => console.error('Erreur de connexion à la base de données :', err.stack));
 
 const app = express();
 app.use(cors());
@@ -44,5 +57,5 @@ app.post('/users', async (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`Serveur démarré sur http://localhost:${PORT}`);
+    console.log(` Serveur démarré sur http://localhost:${PORT}`);
 });
