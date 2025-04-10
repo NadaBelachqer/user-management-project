@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const UserForm = ({ addUser }) => {
+const UserForm = ({ addUser, onClose }) => {
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
+        firstname: '',
+        lastname: '',
         email: '',
-        city: '',
+        city: ''
     });
 
     const [error, setError] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
+    const [success, setSuccess] = useState('');
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,103 +22,58 @@ const UserForm = ({ addUser }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
-        const { firstName, lastName, email, city } = formData;
-    
-        if (!firstName || !lastName || !email || !city) {
-            setError('Veuillez remplir tous les champs.');
-            setSuccessMessage('');
+        
+        if (!Object.values(formData).every(Boolean)) {
+            setError('All fields are required');
             return;
         }
-    
-        if (!validateEmail(email)) {
-            setError('Veuillez entrer un email valide.');
-            setSuccessMessage('');
+
+        if (!validateEmail(formData.email)) {
+            setError('Please enter a valid email');
             return;
         }
-    
-        setError('');
-    
+
         try {
-            const response = await axios.post('http://localhost:5000/users', formData);
-            addUser(response.data);  
-    
-            setSuccessMessage('Utilisateur ajouté avec succès !');
-            setFormData({
-                firstName: '',
-                lastName: '',
-                email: '',
-                city: '',
-            });
-    
-            setTimeout(() => {
-                setSuccessMessage('');
-            }, 3000);
-        } catch (error) {
-            setError('Une erreur est survenue. Veuillez réessayer.');
-            setSuccessMessage('');
+            const res = await axios.post('http://localhost:5000/api/users', formData);
+            addUser(res.data);
+            setSuccess('User added successfully!');
+            setFormData({ firstname: '', lastname: '', email: '', city: '' });
+            setTimeout(() => setSuccess(''), 3000);
+            setError('');
+        } catch (err) {
+            setError(err.response?.data?.error || 'Error adding user');
         }
     };
 
-    console.log('Form rendered');  
-
     return (
-        <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
-            <div className="card p-4" style={{ width: '100%', maxWidth: '500px' }}>
-                <h2 className="mb-4 text-center">Add User</h2>
-
-                {successMessage && <div className="alert alert-success">{successMessage}</div>}
-
-                {error && <div className="alert alert-danger">{error}</div>}
-
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
+        <div className="card p-4 mb-4">
+            <h2 className="mb-3">Add New User</h2>
+            {success && <div className="alert alert-success">{success}</div>}
+            {error && <div className="alert alert-danger">{error}</div>}
+            
+            <form onSubmit={handleSubmit}>
+                {['firstname', 'lastname', 'email', 'city'].map(field => (
+                    <div key={field} className="mb-3">
+                        <label className="form-label">
+                            {field.charAt(0).toUpperCase() + field.slice(1)}
+                        </label>
                         <input
-                            type="text"
+                            type={field === 'email' ? 'email' : 'text'}
+                            name={field}
                             className="form-control"
-                            name="firstName"
-                            placeholder="Fisrt Name"
-                            value={formData.firstName}
+                            value={formData[field]}
                             onChange={handleChange}
                             required
                         />
                     </div>
-                    <div className="mb-3">
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="lastName"
-                            placeholder="Last Name"
-                            value={formData.lastName}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <input
-                            type="email"
-                            className="form-control"
-                            name="email"
-                            placeholder="Email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="city"
-                            placeholder="City"
-                            value={formData.city}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <button type="submit" className="btn btn-primary w-100" style={{ background: '#FFA523', border:'#FFA523' }}>Add User</button>
-                    </form>
-            </div>
+                ))}
+                <div className="d-flex justify-content-between">
+                    <button type="submit" className="btn btn-primary">
+                        Add User
+                    </button>
+                    
+                </div>
+            </form>
         </div>
     );
 };
