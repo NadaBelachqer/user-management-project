@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test:watch": "mocha test/**/*.test.js --watch",
+    "test": "mocha --loader=ts-node/esm test/**/*.test.js",
+    "coverage": "nyc --reporter=text --reporter=html --loader=ts-node/esm mocha test/**/*.test.js"
   },
   "keywords": [],
   "author": "",
@@ -15,5 +19,11 @@
     "express": "^4.21.2",
     "pg": "^8.13.3",
     "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "chai": "^5.2.0",
+    "mocha": "^11.1.0",
+    "nyc": "^17.1.0",
+    "supertest": "^7.1.0"
   }
 }
