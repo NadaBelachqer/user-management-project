@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  backend:
+    image: $DOCKERHUB_REPO-backend
+    environment:
+      DB_HOST: db
+      DB_USER: user      
+      DB_PASSWORD: owyu   
+    ports:
+      - "5000:5000"
+  
+  frontend:
+    image: $DOCKERHUB_REPO-frontend
+    ports:
+      - "80:80"
