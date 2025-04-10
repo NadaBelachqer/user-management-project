@@ -2,12 +2,17 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "devDependencies": {
+  "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+ },
   "dependencies": {
+    "web-vitals": "^2.1.4",
+    "react-icons": "^4.12.0",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.5",
     "cors": "^2.8.5",
     "cra-template": "1.2.0",
-    "dotenv": "^16.4.7",
+    "dotenv": "^16.4.1",
     "express": "^5.1.0",
     "mysql2": "^3.14.0",
     "react": "^19.0.0",
