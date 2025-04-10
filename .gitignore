@@ -1,2 +1,6 @@
-.nodemodules
+node_modules/
+
+# Environment files
 .env
+# Test coverage
+coverage/
