@@ -29,7 +29,7 @@ const UserTable = ({ users, deleteUser, editUser }) => {
             city: user.city
         });
         setMessage('');
-        console.log(`✏️ Editing user ID ${user.id}`);
+        console.log(`Editing user ID ${user.id}`);
     };
 
     const handleUpdate = async (e) => {
@@ -55,7 +55,7 @@ const UserTable = ({ users, deleteUser, editUser }) => {
             }
         } catch (error) {
             console.error('Update error:', error.response?.data || error.message);
-            setMessage(`❌ Error: ${error.response?.data?.error || error.message}`);
+            setMessage(`Error: ${error.response?.data?.error || error.message}`);
             setTimeout(() => setMessage(''), 3000);
         }
     };
@@ -80,7 +80,7 @@ const UserTable = ({ users, deleteUser, editUser }) => {
             }
         } catch (error) {
             console.error('Delete error:', error.response?.data || error.message);
-            setMessage(`❌ Error: ${error.response?.data?.error || error.message}`);
+            setMessage(`Error: ${error.response?.data?.error || error.message}`);
             setTimeout(() => setMessage(''), 3000);
         }
     };

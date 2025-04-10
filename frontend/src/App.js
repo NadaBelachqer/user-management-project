@@ -62,7 +62,7 @@ function App() {
             console.error('Error deleting user:', error);
         }
     };
-    
+
     return (
         <div>
             <Header />
