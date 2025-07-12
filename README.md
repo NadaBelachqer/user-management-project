@@ -45,4 +45,14 @@ Voir la [documentation complète de l'API](API_DOCUMENTATION.md)
 Configurez ces secrets dans GitHub Actions :
 - `DOCKERHUB_USERNAME`
 - `DOCKERHUB_TOKEN`
-- `SSH_PRIVATE_KEY`
+
+## Annexe : Capture d'Ecran du Frontend
+<img width="692" height="364" alt="Capture d'écran 2025-07-12 012715" src="https://github.com/user-attachments/assets/d4b53c9e-b5a6-4621-99b7-f93fa8a69dbf" />
+<img width="671" height="327" alt="Capture d'écran 2025-07-12 012837" src="https://github.com/user-attachments/assets/c23af10a-2f8b-40b1-bf19-c4c6bad3de3c" />
+<img width="705" height="312" alt="Capture d'écran 2025-07-12 012750" src="https://github.com/user-attachments/assets/cf9bd228-bc59-4b92-bc25-f099576d17d8" />
+<img width="674" height="320" alt="Capture d'écran 2025-07-12 012903" src="https://github.com/user-attachments/assets/bf6b017e-758d-4721-8b81-7a86466c9e45" />
+<img width="695" height="365" alt="Capture d'écran 2025-07-12 012931" src="https://github.com/user-attachments/assets/a490c800-8812-44b0-95bd-ca97c4d7ab1b" />
+
+
+
+
